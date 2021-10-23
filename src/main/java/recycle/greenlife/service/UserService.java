@@ -3,6 +3,7 @@ package recycle.greenlife.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import recycle.greenlife.model.User;
 import recycle.greenlife.repository.UserRepository;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
@@ -22,7 +24,7 @@ public class UserService {
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.OK);
 
         } catch (Exception e) {
             System.out.println("Error while getting all products:" + e.getMessage());

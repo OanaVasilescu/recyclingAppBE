@@ -19,7 +19,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/users/id")
+    @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable UUID id){
         return userService.getUserById(id);
     }
