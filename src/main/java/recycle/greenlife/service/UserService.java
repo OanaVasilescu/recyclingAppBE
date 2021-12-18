@@ -42,6 +42,21 @@ public class UserService {
         }
     }
 
+    public ResponseEntity<User> getUserLogin(String emailOrUsername) {
+        Optional<User> user;
+        if (emailOrUsername.contains("@")) {
+           user = Optional.ofNullable(userRepository.findByEmail(emailOrUsername));
+        } else {
+           user = Optional.ofNullable(userRepository.findByUsername(emailOrUsername));
+        }
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        } else {
+            System.out.println("No user found");
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     public ResponseEntity<String> addUser(User user) {
         try {
             User savedUser = userRepository.save(new User(user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstName(), user.getLastName()));
