@@ -42,15 +42,16 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<User> getUserLogin(String emailOrUsername) {
+    public ResponseEntity<User> verifyUserLogin(String emailOrUsername, String password) {
         Optional<User> user;
         if (emailOrUsername.contains("@")) {
-           user = Optional.ofNullable(userRepository.findByEmail(emailOrUsername));
+            user = Optional.ofNullable(userRepository.findByEmail(emailOrUsername));
         } else {
-           user = Optional.ofNullable(userRepository.findByUsername(emailOrUsername));
+            user = Optional.ofNullable(userRepository.findByUsername(emailOrUsername));
         }
         if (user.isPresent()) {
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
+            //TODO verify password
         } else {
             System.out.println("No user found");
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
