@@ -22,6 +22,8 @@ public class Product {
     @Column(name = "components")
     private List<UUID> componentIds; // = new ArrayList<>();???? TODO: what?
 
+    //TODO: add barcode to product
+
     public Product() {
     }
 

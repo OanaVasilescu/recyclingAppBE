@@ -1,6 +1,7 @@
 package recycle.greenlife.model;
 
 import com.sun.istack.NotNull;
+import org.hibernate.type.BinaryType;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -24,18 +25,16 @@ public class Component {
     @Column(name = "priority")
     private Integer priority;
 
-    public enum ProductType {
-        bottle,
-        wrapping,
-        capac // TODO: add categories
-    }
-
     @Enumerated(EnumType.STRING)
     @Column(name = "productType")
-    private ProductType productType;
+    private Enums.ProductType productType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "binType")
+    private Enums.BinType binType;
 
-    public Component(String name, Integer productCode, String instructions, Integer priority, ProductType productType) {
+    //TODO: see how to know where should every component be thrown - > verde, albastru, compost,
+    public Component(String name, Integer productCode, String instructions, Integer priority, Enums.ProductType productType) {
         this.name = name;
         this.productCode = productCode;
         this.instructions = instructions;
@@ -86,11 +85,11 @@ public class Component {
         this.priority = priority;
     }
 
-    public ProductType getProductType() {
+    public Enums.ProductType getProductType() {
         return productType;
     }
 
-    public void setProductType(ProductType productType) {
+    public void setProductType(Enums.ProductType productType) {
         this.productType = productType;
     }
 }
