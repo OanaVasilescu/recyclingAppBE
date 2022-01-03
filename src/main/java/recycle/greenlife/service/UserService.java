@@ -60,6 +60,7 @@ public class UserService {
 
     public ResponseEntity<String> addUser(User user) {
         try {
+            //TODO verify if user already exists
             User savedUser = userRepository.save(new User(user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstName(), user.getLastName()));
             return new ResponseEntity<>("User saved successfully", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -69,6 +70,7 @@ public class UserService {
     }
 
     public ResponseEntity<User> updateUser(UUID id, User userData) {
+        //TODO: verify if new data is already taken
         Optional<User> oldUserData = userRepository.findById(id);
         if (oldUserData.isPresent()) {
             User updatedUser = oldUserData.get();
