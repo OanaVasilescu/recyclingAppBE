@@ -1,35 +1,34 @@
 package recycle.greenlife.model;
 
-import com.sun.istack.NotNull;
+
+import org.jetbrains.annotations.NotNull; // is this ok?
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
-@Table(name = "`user`")
+
+
+//@Entity
+//@Table(name = "`user`")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
-    @NotNull
-    @Column(name = "username")
     private String username;
 
     @NotNull
-    @Column(name = "password")
     private String password;
 
-    @NotNull
-    @Column(name = "email")
+//    @NotNull
     private String email;
 
-    @NotNull
-    @Column(name = "firstName")
+//    @NotNull
     private String firstName;
 
-    @NotNull
-    @Column(name = "lastName")
+//    @NotNull
     private String lastName;
 
     public User() {
@@ -43,7 +42,9 @@ public class User {
         this.lastName = lastName;
     }
 
-    public UUID getId() {
+    public void setId(String id){this.id = id;}
+
+    public String getId() {
         return id;
     }
 

@@ -1,39 +1,34 @@
 package recycle.greenlife.model;
 
-import com.sun.istack.NotNull;
-import org.hibernate.type.BinaryType;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.UUID;
+import org.springframework.data.annotation.Id;
+
 
 public class Component {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotNull
-    @Column(name = "componentName")
+//    @NotNull
     private String name;
 
-    @NotNull
-    @Column(name = "productCode")
+//    @NotNull
     private Integer productCode;
 
-    @Column(name = "recyclingInstructions")
     private String instructions;
 
-    @Column(name = "priority")
     private Integer priority;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "productType")
     private Enums.ProductType productType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "binType")
     private Enums.BinType binType;
 
-    //TODO: see how to know where should every component be thrown - > verde, albastru, compost,
+    //TODO: see how to know where should every component be thrown - > normal,plastic, compost
     public Component(String name, Integer productCode, String instructions, Integer priority, Enums.ProductType productType) {
         this.name = name;
         this.productCode = productCode;

@@ -1,11 +1,11 @@
 package recycle.greenlife.model;
 
-import com.sun.istack.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,12 +14,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotNull
-    @Column(name = "productName")
+//    @NotNull
     private String name;
 
-    @NotNull
-    @Column(name = "components")
+//    @NotNull
     private List<UUID> componentIds; // = new ArrayList<>();???? TODO: what?
 
     //TODO: add barcode to product
