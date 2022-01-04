@@ -3,12 +3,12 @@ package recycle.greenlife.model;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private UUID id = UUID.randomUUID();
 
     private String username;
 
@@ -31,11 +31,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
