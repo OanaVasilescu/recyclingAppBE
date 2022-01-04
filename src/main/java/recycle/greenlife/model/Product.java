@@ -10,8 +10,7 @@ import java.util.UUID;
 
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private UUID id = UUID.randomUUID();
 
     private String name;
 
@@ -27,11 +26,11 @@ public class Product {
         this.componentIds = componentIds;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

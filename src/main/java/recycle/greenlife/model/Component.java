@@ -8,8 +8,7 @@ import org.springframework.data.annotation.Id;
 
 public class Component {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private UUID id = UUID.randomUUID();
 
     private String name;
 
@@ -37,11 +36,11 @@ public class Component {
     public Component() {
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
