@@ -1,17 +1,10 @@
 package recycle.greenlife.model;
 
-
-import org.jetbrains.annotations.NotNull; // is this ok?
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 
-
-//@Entity
-//@Table(name = "`user`")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,16 +12,12 @@ public class User {
 
     private String username;
 
-    @NotNull
     private String password;
 
-//    @NotNull
     private String email;
 
-//    @NotNull
     private String firstName;
 
-//    @NotNull
     private String lastName;
 
     public User() {
@@ -42,7 +31,9 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setId(String id){this.id = id;}
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;

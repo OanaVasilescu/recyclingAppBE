@@ -1,6 +1,5 @@
 package recycle.greenlife.model;
 
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -10,12 +9,10 @@ import org.springframework.data.annotation.Id;
 public class Component {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
-//    @NotNull
     private String name;
 
-//    @NotNull
     private Integer productCode;
 
     private String instructions;
@@ -40,11 +37,11 @@ public class Component {
     public Component() {
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
