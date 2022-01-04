@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import org.springframework.data.mongodb.core.mapping.Document;
 import recycle.greenlife.model.User;
 import recycle.greenlife.repository.UserRepository;
 
@@ -14,6 +16,7 @@ import java.util.UUID;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -42,21 +45,21 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<User> verifyUserLogin(String emailOrUsername, String password) {
-        Optional<User> user;
-        if (emailOrUsername.contains("@")) {
-            user = Optional.ofNullable(userRepository.findByEmail(emailOrUsername));
-        } else {
-            user = Optional.ofNullable(userRepository.findByUsername(emailOrUsername));
-        }
-        if (user.isPresent()) {
-            return new ResponseEntity<>(user.get(), HttpStatus.OK);
-            //TODO verify password
-        } else {
-            System.out.println("No user found");
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-    }
+//    public ResponseEntity<User> verifyUserLogin(String emailOrUsername, String password) {
+//        Optional<User> user;
+//        if (emailOrUsername.contains("@")) {
+//            user = Optional.ofNullable(userRepository.findByEmail(emailOrUsername));
+//        } else {
+//            user = Optional.ofNullable(userRepository.findByUsername(emailOrUsername));
+//        }
+//        if (user.isPresent()) {
+//            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+//            //TODO verify password
+//        } else {
+//            System.out.println("No user found");
+//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//        }
+//    }
 
     public ResponseEntity<String> addUser(User user) {
         try {
