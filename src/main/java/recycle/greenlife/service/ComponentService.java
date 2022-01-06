@@ -97,12 +97,46 @@ public class ComponentService {
 
     public ResponseEntity<String> deleteComponent(UUID id) {
         try {
-//TODO: remove from every product which uses this
+            //TODO: remove from every product which uses this
+            ResponseEntity response = this.removeComponentFromProducts(id);
+            if (response.getStatusCode().isError()) {
+                return new ResponseEntity<>("Error removing component from products", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
             componentRepository.deleteById(id);
             return new ResponseEntity<>("Component " + id + " successfully deleted", HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             System.out.println("Component " + id + " could not be deleted. Error: " + e.getMessage());
             return new ResponseEntity<>("Component " + id + " could not be deleted. Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private ResponseEntity<String> removeComponentFromProducts(UUID id) {
+        try {
+            List<Product> allProducts = this.getAllProducts();
+            if (allProducts == null) {
+                return new ResponseEntity<>("Error getting product to delete components from them", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            for (Product product : allProducts) { // remove component ID from every product
+                List<UUID> components = product.getComponentIds();
+                components.removeIf(el -> el == id);
+            }
+
+            return new ResponseEntity<>("Component removed from products", HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println("err:" + e.getMessage());
+            return new ResponseEntity<>("Error removing component:" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private List<Product> getAllProducts() {
+        try {
+            List<Product> products = new ArrayList<>();
+            productRepository.findAll().forEach(products::add);
+            return products;
+        } catch (Exception e) {
+            System.out.println("Error while getting all products:" + e.getMessage());
+            return null;
         }
     }
 }

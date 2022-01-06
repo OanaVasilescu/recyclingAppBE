@@ -14,14 +14,14 @@ public class Product {
 
     private String name;
 
-    private List<String> componentIds; // = new ArrayList<>();???? TODO: what?
+    private List<UUID> componentIds; // = new ArrayList<>();???? TODO: what?
 
     //TODO: add barcode to product
 
     public Product() {
     }
 
-    public Product(String name, List<String> componentIds) {
+    public Product(String name, List<UUID> componentIds) {
         this.name = name;
         this.componentIds = componentIds;
     }
@@ -42,11 +42,11 @@ public class Product {
         this.name = name;
     }
 
-    public List<String> getComponentIds() {
+    public List<UUID> getComponentIds() {
         return componentIds;
     }
 
-    public void setComponentIds(List<String> componentIds) {
+    public void setComponentIds(List<UUID> componentIds) {
         this.componentIds = componentIds;
     }
 }
