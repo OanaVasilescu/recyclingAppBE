@@ -7,10 +7,16 @@ public class Enums {
         capac // TODO: add categories
     }
 
-    public  enum BinType{
+    public enum BinType {
         plasticPaper,
         glass,
         compost,
         normal
+    }
+
+    public enum ReminderType {
+        recyclable,
+        normal,
+        other,
     }
 }
