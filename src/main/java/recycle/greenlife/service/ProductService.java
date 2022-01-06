@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import recycle.greenlife.model.Product;
+import recycle.greenlife.model.User;
 import recycle.greenlife.repository.ProductRepository;
+import recycle.greenlife.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,7 @@ public class ProductService {
     public ResponseEntity<String> deleteAllProducts() {
         try {
             productRepository.deleteAll();
+
             return new ResponseEntity<>("Products successfully deleted", HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             System.out.println("Products could not be deleted. Error: " + e.getMessage());

@@ -2,7 +2,7 @@ package recycle.greenlife.model;
 
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -19,6 +19,11 @@ public class User {
     private String firstName;
 
     private String lastName;
+
+    private List<UUID> reminderIds;
+
+
+    //TODO: add admin roles
 
     public User() {
     }
@@ -77,5 +82,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<UUID> getReminderIds() {
+        return reminderIds;
+    }
+
+    public void setReminderIds(List<UUID> reminderIds) {
+        this.reminderIds = reminderIds;
     }
 }

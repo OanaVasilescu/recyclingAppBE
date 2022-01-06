@@ -30,7 +30,7 @@ public class UserService {
             return new ResponseEntity<>(users, HttpStatus.OK);
 
         } catch (Exception e) {
-            System.out.println("Error while getting all products:" + e.getMessage());
+            System.out.println("Error while getting all users:" + e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -45,21 +45,21 @@ public class UserService {
         }
     }
 
-//    public ResponseEntity<User> verifyUserLogin(String emailOrUsername, String password) {
-//        Optional<User> user;
-//        if (emailOrUsername.contains("@")) {
-//            user = Optional.ofNullable(userRepository.findByEmail(emailOrUsername));
-//        } else {
-//            user = Optional.ofNullable(userRepository.findByUsername(emailOrUsername));
-//        }
-//        if (user.isPresent()) {
-//            return new ResponseEntity<>(user.get(), HttpStatus.OK);
-//            //TODO verify password
-//        } else {
-//            System.out.println("No user found");
-//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//        }
-//    }
+    public ResponseEntity<User> verifyUserLogin(String emailOrUsername, String password) {
+        Optional<User> user;
+        if (emailOrUsername.contains("@")) {
+            user = Optional.ofNullable(userRepository.findByEmail(emailOrUsername));
+        } else {
+            user = Optional.ofNullable(userRepository.findByUsername(emailOrUsername));
+        }
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+            //TODO verify password
+        } else {
+            System.out.println("No user found");
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
     public ResponseEntity<String> addUser(User user) {
         try {
@@ -92,7 +92,7 @@ public class UserService {
     public ResponseEntity<String> deleteAllUsers() {
         try {
             userRepository.deleteAll();
-            return new ResponseEntity<>("Products successfully deleted", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Users successfully deleted", HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             System.out.println("Users could not be deleted. Error: " + e.getMessage());
             return new ResponseEntity<>("Users could not be deleted. Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

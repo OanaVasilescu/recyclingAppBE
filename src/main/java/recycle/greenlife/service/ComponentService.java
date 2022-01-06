@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import recycle.greenlife.model.Component;
+import recycle.greenlife.model.Product;
 import recycle.greenlife.repository.ComponentRepository;
+import recycle.greenlife.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,9 @@ import java.util.UUID;
 public class ComponentService {
     @Autowired
     private ComponentRepository componentRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     public ResponseEntity<List<Component>> getAllComponents() {
         try {
@@ -71,9 +76,18 @@ public class ComponentService {
         }
     }
 
-    public ResponseEntity<String> deleteAllComponents() {
+    public ResponseEntity<String> deleteAllComponents() { //TODO: don't allow deletion if any product uses this
         try {
             componentRepository.deleteAll();
+
+            productRepository.deleteAll();// cascade products answers
+
+            List<Product> products = new ArrayList<Product>();
+            productRepository.findAll().forEach(products::add); // remove component from every product
+            for (Product product : products) {
+                product.setComponentIds(null);
+            }
+
             return new ResponseEntity<>("Components successfully deleted", HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             System.out.println("Components could not be deleted. Error: " + e.getMessage());
@@ -83,6 +97,7 @@ public class ComponentService {
 
     public ResponseEntity<String> deleteComponent(UUID id) {
         try {
+//TODO: remove from every product which uses this
             componentRepository.deleteById(id);
             return new ResponseEntity<>("Component " + id + " successfully deleted", HttpStatus.NO_CONTENT);
         } catch (Exception e) {

@@ -24,8 +24,8 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-//    @PostMapping("/users/login")
-//    public ResponseEntity<User> verifyUserLogin(@RequestParam String emailOrUsername, @RequestParam String password){ return userService.verifyUserLogin(emailOrUsername, password);}
+    @PostMapping("/users/login")
+    public ResponseEntity<User> verifyUserLogin(@RequestParam String emailOrUsername, @RequestParam String password){ return userService.verifyUserLogin(emailOrUsername, password);}
 
     @PostMapping("/users")
     public ResponseEntity<String> addUser(@RequestBody User user){
