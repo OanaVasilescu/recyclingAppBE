@@ -14,7 +14,7 @@
 	<name>greenlife</name>
 	<description>Application that helps people recycle</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
