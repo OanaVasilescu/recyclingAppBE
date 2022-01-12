@@ -25,6 +25,11 @@ public class TipController {
         return tipService.getTipById(id);
     }
 
+    @GetMapping("/tips/random")
+    public ResponseEntity<Tip> getRandomTip() {
+        return tipService.getRandomTip();
+    }
+
     @PostMapping("/tips")
     public ResponseEntity<String> addTip(@RequestBody Tip tip) {
         return tipService.addTip(tip);

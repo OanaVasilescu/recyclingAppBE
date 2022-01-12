@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 import recycle.greenlife.model.Tip;
 import recycle.greenlife.repository.TipRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class TipService {
@@ -42,11 +39,25 @@ public class TipService {
         }
     }
 
+    public ResponseEntity<Tip> getRandomTip() {
+        try {
+            List<Tip> tips = new ArrayList<>();
+            tipRepository.findAll().forEach(tips::add);
+            if (tips.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            Collections.shuffle(tips);
+            return new ResponseEntity<>(tips.get(0), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println("Error while getting all tips:" + e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     public ResponseEntity<String> addTip(Tip tip) {
         try {
             //TODO verify if tip already exists
-            Tip savedTip = tipRepository.save(new Tip(tip.getTipText()));
+            Tip savedTip = tipRepository.save(new Tip(tip.getTipText(), tip.getMoreInfo()));
             return new ResponseEntity<>("Tip saved successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println("The tip could not be added. Error:" + e.getMessage());

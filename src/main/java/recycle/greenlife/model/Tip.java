@@ -12,11 +12,14 @@ public class Tip {
 
     private String tipText; //TODO: not null text
 
+    private String moreInfo;
+
     public Tip() {
     }
 
-    public Tip(String tipText) {
+    public Tip(String tipText, String moreInfo) {
         this.tipText = tipText;
+        this.moreInfo = moreInfo;
     }
 
     public UUID getId() {
@@ -33,5 +36,13 @@ public class Tip {
 
     public void setTipText(String tipText) {
         this.tipText = tipText;
+    }
+
+    public String getMoreInfo() {
+        return moreInfo;
+    }
+
+    public void setMoreInfo(String moreInfo) {
+        this.moreInfo = moreInfo;
     }
 }
