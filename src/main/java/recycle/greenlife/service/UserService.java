@@ -45,16 +45,26 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<User> verifyUserLogin(String emailOrUsername, String password) {
+    public ResponseEntity<User> verifyUserLogin(User givenUser) {
         Optional<User> user;
-        if (emailOrUsername.contains("@")) {
-            user = Optional.ofNullable(userRepository.findByEmail(emailOrUsername));
+        String username = givenUser.getUsername();
+        String password = givenUser.getPassword();
+        String email = givenUser.getEmail();
+        if (password == null)
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        if (username == null) {
+            if (email == null)
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            user = Optional.ofNullable(userRepository.findByEmail(email));
         } else {
-            user = Optional.ofNullable(userRepository.findByUsername(emailOrUsername));
+            user = Optional.ofNullable(userRepository.findByUsername(username));
         }
         if (user.isPresent()) {
-            return new ResponseEntity<>(user.get(), HttpStatus.OK);
-            //TODO verify password
+            User foundUser = user.get();
+            String savedPassword = foundUser.getPassword();
+            if (savedPassword.equals(givenUser.getPassword()))
+                return new ResponseEntity<>(user.get(), HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         } else {
             System.out.println("No user found");
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/users/login")
-    public ResponseEntity<User> verifyUserLogin(@RequestParam String emailOrUsername, @RequestParam String password){ return userService.verifyUserLogin(emailOrUsername, password);}
+    public ResponseEntity<User> verifyUserLogin(@RequestBody User user){ return userService.verifyUserLogin(user);}
 
     @PostMapping("/users")
     public ResponseEntity<String> addUser(@RequestBody User user){
